@@ -1,5 +1,3 @@
-# AutoPickup Mod for Waterpark Simulator
-
 Automatically collects science flasks and money piles as soon as they appear in your park, so you never have to run over and pick them up manually.
 
 ---
@@ -49,6 +47,8 @@ Open `BepInEx\LogOutput.log` (in your game folder) and look for these lines near
 PlayerCharacter resolved.
 Interact method confirmed for ScienceEssenseIntertactable
 Interact method confirmed for MoneyPileInteractable
+Ticker type registered with IL2Cpp.
+Ticker GameObject created — per-frame scanning active.
 Ready — scanning every 3 seconds.
 ```
 Then, while playing, wait for a SmartGuy or Magnate visitor to drop an item. Within a few seconds you should see:
@@ -61,6 +61,7 @@ Auto-collected MoneyPileInteractable
 
 - **Don't see the startup lines above in the log at all** — BepInEx isn't loading the plugin. Double check `AutoPickup.dll` is directly inside `BepInEx\plugins\`, not in a subfolder.
 - **See a "not found" warning during startup instead** — the game was updated and an internal name changed. Please report this on the mod page so it can be fixed.
+- **See a "SetupTicker failed" error** — something in the IL2CPP environment changed in a way this mod doesn't expect. Please report this on the mod page with the exact error text.
 - **Items aren't being collected during play** — the mod scans every 3 seconds, so allow a short delay. If nothing is ever collected even after a SmartGuy/Magnate visit, check the log for warnings around the time the item dropped.
 
 ---
