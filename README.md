@@ -1,23 +1,22 @@
-# NoPushMod
+# AutoPickup Mod for Waterpark Simulator
 
-A mod for **Waterpark Simulator** that stops your NPCs getting pushed over or hurt — so you can run around and use your tools without worrying about unhappy guests.
+Automatically collects science flasks and money piles as soon as they appear in your park, so you never have to run over and pick them up manually.
 
 ---
 
 ## What it does
 
-The base game has two situations where NPCs get knocked over or hurt, which causes them to leave bad reviews:
+**Science flasks** — When a SmartGuy visitor drops a science flask in your park, the mod picks it up automatically and gives you the research XP straight away.
 
-- **Running** — if you run into a guest they get pushed over
-- **Tools** — if you accidentally hit a guest with your hammer, sledgehammer, or mop they get hurt
+**Money piles** — When a Magnate visitor drops a money pile in your park, the mod collects it automatically.
 
-This mod removes both of those reactions. Guests will no longer be affected when you bump into them while running or swing a tool near them. Everything else stays the same — guests still react normally to the waterpark itself, rides, and water guns.
+Both happen in the background every few seconds. You will still see the items appear briefly before they are collected.
 
 ---
 
 ## Requirements
 
-- **BepInEx 6 (IL2CPP build)** installed on Waterpark Simulator — e.g. via the "BepInEx and MelonLoader" pack from [Nexus Mods](https://www.nexusmods.com/waterparksimulator/mods/62)
+- **BepInEx 6 (IL2CPP build)** installed on Waterpark Simulator — e.g. via the ["BepInEx and MelonLoader" pack on Nexus Mods](https://www.nexusmods.com/waterparksimulator/mods/62)
 
 ---
 
@@ -34,9 +33,9 @@ This mod requires **BepInEx 6 (IL2CPP build)**. The easiest way to get it set up
    ```
 3. Launch the game once and let it sit at the main menu for a minute or two — BepInEx needs this first launch to generate its IL2CPP interop assemblies. This step only needs to be done once.
 
-### Step 2 — Install NoPushMod
+### Step 2 — Install AutoPickup
 
-1. Download **NoPushMod.dll**
+1. Download **AutoPickup.dll**
 2. Copy it into the `BepInEx\plugins` folder inside your Waterpark Simulator install folder:
    ```
    Steam\steamapps\common\Waterpark Simulator\BepInEx\plugins\
@@ -45,31 +44,38 @@ This mod requires **BepInEx 6 (IL2CPP build)**. The easiest way to get it set up
 
 ### Step 3 — Confirm it worked
 
-Open `BepInEx\LogOutput.log` (in your game folder) and look for these two lines:
+Open `BepInEx\LogOutput.log` (in your game folder) and look for these lines near the start:
 ```
-[Info   :   NoPushMod] Patched PlayerTriggerPush.OnTriggerEnter — running push disabled.
-[Info   :   NoPushMod] Patched HitNPCInteractable.HitNPC — tool hits on NPCs disabled.
+PlayerCharacter resolved.
+Interact method confirmed for ScienceEssenseIntertactable
+Interact method confirmed for MoneyPileInteractable
+Ready — scanning every 3 seconds.
 ```
-If you see both, the mod is active. Run into an NPC or graze one with a tool in-game to confirm.
+Then, while playing, wait for a SmartGuy or Magnate visitor to drop an item. Within a few seconds you should see:
+```
+Auto-collected ScienceEssenseIntertactable
+Auto-collected MoneyPileInteractable
+```
 
 ### Troubleshooting
 
-- **Don't see the two lines above in the log at all** — BepInEx isn't loading the plugin. Double check `NoPushMod.dll` is directly inside `BepInEx\plugins\`, not in a subfolder.
-- **See a "Could not find" warning instead** — the game was updated and an internal method name changed. Please report this on the mod page so it can be fixed.
+- **Don't see the startup lines above in the log at all** — BepInEx isn't loading the plugin. Double check `AutoPickup.dll` is directly inside `BepInEx\plugins\`, not in a subfolder.
+- **See a "not found" warning during startup instead** — the game was updated and an internal name changed. Please report this on the mod page so it can be fixed.
+- **Items aren't being collected during play** — the mod scans every 3 seconds, so allow a short delay. If nothing is ever collected even after a SmartGuy/Magnate visit, check the log for warnings around the time the item dropped.
 
 ---
 
 ## How to uninstall
 
-Delete **NoPushMod.dll** from the `BepInEx\plugins` folder and restart the game.
+Delete **AutoPickup.dll** from the `BepInEx\plugins` folder and restart the game.
 
 ---
 
 ## Version
 
-| Field   | Value                 |
-|---------|-----------------------|
-| Version | 1.0.0                 |
-| Author  | ShadowM00n81          |
-| Game    | Waterpark Simulator   |
-| Loader  | BepInEx 6 (IL2CPP)    |
+| Field   | Value                |
+|---------|----------------------|
+| Version | 1.0.0                |
+| Author  | ShadowM00n81         |
+| Game    | Waterpark Simulator  |
+| Loader  | BepInEx 6 (IL2CPP)   |
